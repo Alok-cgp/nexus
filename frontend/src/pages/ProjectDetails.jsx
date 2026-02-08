@@ -51,8 +51,9 @@ const ProjectDetails = () => {
             ]);
             
             setProject(projRes.data);
-            setDocuments(docsRes.data);
-            setAllUsers(usersRes.data.data || usersRes.data);
+            setDocuments(Array.isArray(docsRes.data) ? docsRes.data : []);
+            setAllUsers(Array.isArray(usersRes.data.data) ? usersRes.data.data : 
+                       (Array.isArray(usersRes.data) ? usersRes.data : []));
             setSelectedLead(projRes.data.projectLead?._id || '');
             setSelectedDevs(projRes.data.assignedDevelopers?.map(d => d._id) || []);
         } catch (error) {
@@ -266,7 +267,7 @@ const ProjectDetails = () => {
                                         onChange={(e) => setSelectedLead(e.target.value)}
                                     >
                                         <option value="">Select Lead</option>
-                                        {allUsers.filter(u => u.role === 'Project Lead' || u.role === 'Admin').map(u => (
+                                        {(Array.isArray(allUsers) ? allUsers : []).filter(u => u.role === 'Project Lead' || u.role === 'Admin').map(u => (
                                             <option key={u._id} value={u._id}>{u.name}</option>
                                         ))}
                                     </select>
@@ -278,7 +279,7 @@ const ProjectDetails = () => {
                                         Assigned Developers
                                     </label>
                                     <div className="developers-selection-grid">
-                                        {allUsers.filter(u => u.role === 'Developer').map(u => (
+                                        {(Array.isArray(allUsers) ? allUsers : []).filter(u => u.role === 'Developer').map(u => (
                                             <div 
                                                 key={u._id} 
                                                 className={`dev-selection-item ${selectedDevs.includes(u._id) ? 'selected' : ''}`}
@@ -295,7 +296,7 @@ const ProjectDetails = () => {
                                                 </div>
                                             </div>
                                         ))}
-                                        {allUsers.filter(u => u.role === 'Developer').length === 0 && (
+                                        {(Array.isArray(allUsers) ? allUsers : []).filter(u => u.role === 'Developer').length === 0 && (
                                             <p className="text-sm text-slate-500 italic p-4 text-center">No developers available</p>
                                         )}
                                     </div>

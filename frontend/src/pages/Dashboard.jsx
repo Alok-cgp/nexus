@@ -54,7 +54,8 @@ const Dashboard = () => {
             ]);
             
             // Process data for display
-            const allProjects = projectsRes.data.data || projectsRes.data;
+            const allProjects = Array.isArray(projectsRes.data.data) ? projectsRes.data.data : 
+                               (Array.isArray(projectsRes.data) ? projectsRes.data : []);
             setProjects(allProjects);
             
             // "My Projects" are projects where the user is either the Lead or an Assigned Developer
@@ -64,7 +65,9 @@ const Dashboard = () => {
             );
             setMyProjects(assigned);
 
-            setAllUsers(usersRes.data.data || usersRes.data);
+            const fetchedUsers = Array.isArray(usersRes.data.data) ? usersRes.data.data : 
+                                (Array.isArray(usersRes.data) ? usersRes.data : []);
+            setAllUsers(fetchedUsers);
         } catch (error) {
             toast.error('Failed to fetch data');
         } finally {
@@ -161,7 +164,7 @@ const Dashboard = () => {
                         <Folder size={24} />
                         <span className="stat-label">All Active</span>
                     </div>
-                    <h3 className="stat-value">{projects.filter(p => p.status === 'Active').length}</h3>
+                    <h3 className="stat-value">{(Array.isArray(projects) ? projects : []).filter(p => p.status === 'Active').length}</h3>
                     <p className="stat-desc">System Projects</p>
                 </div>
                 <div className="stat-card">
@@ -177,7 +180,7 @@ const Dashboard = () => {
                         <CheckCircle size={24} className="stat-icon" />
                         <span className="stat-label">Completed</span>
                     </div>
-                    <h3 className="stat-value">{projects.filter(p => p.status === 'Completed').length}</h3>
+                    <h3 className="stat-value">{(Array.isArray(projects) ? projects : []).filter(p => p.status === 'Completed').length}</h3>
                     <p className="stat-desc">Total Completed</p>
                 </div>
                 <div className="stat-card">
@@ -185,7 +188,7 @@ const Dashboard = () => {
                         <Users size={24} className="stat-icon" />
                         <span className="stat-label">Team</span>
                     </div>
-                    <h3 className="stat-value">{allUsers.length}</h3>
+                    <h3 className="stat-value">{(Array.isArray(allUsers) ? allUsers : []).length}</h3>
                     <p className="stat-desc">Total Members</p>
                 </div>
             </div>
@@ -402,7 +405,7 @@ const Dashboard = () => {
                     </h2>
                 </div>
                 <div className="projects-grid">
-                    {(user.role === 'Admin' ? projects.filter(p => !p.projectLead) : myProjects).map((project) => (
+                    {(user.role === 'Admin' ? (Array.isArray(projects) ? projects : []).filter(p => !p.projectLead) : (Array.isArray(myProjects) ? myProjects : [])).map((project) => (
                         <Link key={project._id} to={`/projects/${project._id}`} className="project-link">
                             <div className="project-card">
                                 <div className="project-header">
@@ -441,15 +444,13 @@ const Dashboard = () => {
                         </Link>
                     ))}
                 </div>
-                {(user.role === 'Admin' ? projects.filter(p => !p.projectLead).length === 0 : myProjects.length === 0) && (
+                {(user.role === 'Admin' ? (Array.isArray(projects) ? projects : []).filter(p => !p.projectLead).length === 0 : (Array.isArray(myProjects) ? myProjects : []).length === 0) && (
                     <div className="empty-state">
-                        <Briefcase className="empty-icon" />
-                        <h3 className="empty-title">
-                            {user.role === 'Admin' ? 'All projects have leads' : 'No projects assigned'}
-                        </h3>
-                        <p className="empty-text">
-                            {user.role === 'Admin' ? 'Great job managing the team!' : "You haven't been assigned to any projects yet."}
-                        </p>
+                        <div className="empty-icon">
+                            <Briefcase size={48} />
+                        </div>
+                        <h3>No projects found</h3>
+                        <p>Get started by creating a new project or assigning leads.</p>
                     </div>
                 )}
             </div>
@@ -469,7 +470,7 @@ const Dashboard = () => {
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-slate-200">
-                            {projects.filter(p => p.status === 'Active').map((project) => (
+                            {(Array.isArray(projects) ? projects : []).filter(p => p.status === 'Active').map((project) => (
                                 <tr key={project._id} className="hover:bg-slate-50 transition-colors">
                                     <td className="px-6 py-4">
                                         <div className="font-medium text-slate-900">{project.name}</div>
@@ -534,7 +535,7 @@ const Dashboard = () => {
                             <div className="table-cell">MFA</div>
                         </div>
                         <div className="table-body">
-                            {allUsers.map((u) => (
+                            {(Array.isArray(allUsers) ? allUsers : []).map((u) => (
                                 <div key={u._id} className="table-row">
                                     <div className="table-cell">
                                         <span className="user-name">{u.name}</span>
