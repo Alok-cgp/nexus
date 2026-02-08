@@ -1,3 +1,27 @@
+/* Responsive Design */
+@media (max-width: 480px) {
+  .login-content {
+    padding: 0 1.5rem;
+  }
+
+  .login-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .login-title {
+    font-size: 1.5rem;
+  }
+
+  .login-subtitle {
+    font-size: 0.875rem;
+  }
+
+  .login-logo {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
+}
+
 .login-container {
   min-height: 100vh;
   display: flex;
@@ -214,27 +238,7 @@
 
 .login-submit-btn {
   width: 100%;
-  margin-top: 0.5rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border: none;
-  color: white;
-  font-weight: 600;
-  padding: 0.875rem 1.5rem;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-}
-
-.login-submit-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
-}
-
-.login-submit-btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-  transform: none;
+  margin-top: 1rem;
 }
 
 .login-footer {
@@ -267,46 +271,53 @@
   gap: 0.5rem;
   margin-bottom: 2rem;
   padding: 0.5rem;
-  background: rgba(0, 0, 0, 0.8);
-  border-radius: 0.75rem;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  -webkit-backdrop-filter: blur(5px);
-  backdrop-filter: blur(5px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  background: rgba(15, 23, 42, 0.4);
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 }
 
 .selector-btn {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1.5rem;
+  gap: 0.6rem;
+  padding: 0.8rem 1.5rem;
   border: none;
-  border-radius: 0.5rem;
+  border-radius: 0.75rem;
   background: transparent;
-  color: rgba(255, 255, 255, 0.7);
-  font-weight: 600;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 700;
   font-size: 0.875rem;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  position: relative;
+  overflow: hidden;
 }
 
 .selector-btn:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.1);
   color: white;
-  transform: translateY(-1px);
 }
 
 .selector-btn.active {
   background: white;
-  color: #667eea;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  color: #6366f1;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-1px);
 }
 
 .selector-icon {
-  width: 1.25rem;
-  height: 1.25rem;
+  width: 1.1rem;
+  height: 1.1rem;
+  transition: transform 0.3s ease;
+}
+
+.selector-btn.active .selector-icon {
+  transform: scale(1.1);
 }
 
 .admin-theme .user-type-selector {

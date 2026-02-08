@@ -1,6 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { Layout, LogOut, Settings, User as UserIcon } from 'lucide-react';
+import Button from './Button';
 
 const Navbar = () => {
     const { user, logout } = useAuth();
@@ -34,13 +35,15 @@ const Navbar = () => {
                             <Settings className="h-5 w-5" />
                         </Link>
 
-                        <button 
+                        <Button 
                             onClick={handleLogout}
-                            className="flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium text-red-600 hover:bg-red-50 transition-colors"
+                            variant="ghost"
+                            className="text-red-600 hover:bg-red-50"
+                            size="small"
                         >
                             <LogOut className="h-4 w-4" />
                             <span>Logout</span>
-                        </button>
+                        </Button>
                     </div>
                 </div>
             </div>

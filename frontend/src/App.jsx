@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { AuthProvider } from './context/AuthContext';
@@ -13,6 +14,8 @@ import FunctionalityGuide from './pages/FunctionalityGuide';
 import './App.css';
 
 function App() {
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+
   return (
     <AuthProvider>
       <Router>
@@ -26,32 +29,32 @@ function App() {
             {/* Protected Routes */}
             <Route element={<ProtectedRoute />}>
               <Route path="/" element={
-                <div className="app-layout">
-                  <Sidebar />
+                <div className={`app-layout ${isSidebarCollapsed ? 'sidebar-collapsed' : ''}`}>
+                  <Sidebar isCollapsed={isSidebarCollapsed} setIsCollapsed={setIsSidebarCollapsed} />
                   <main className="main-content">
                     <Dashboard />
                   </main>
                 </div>
               } />
               <Route path="/projects/:id" element={
-                <div className="app-layout">
-                  <Sidebar />
+                <div className={`app-layout ${isSidebarCollapsed ? 'sidebar-collapsed' : ''}`}>
+                  <Sidebar isCollapsed={isSidebarCollapsed} setIsCollapsed={setIsSidebarCollapsed} />
                   <main className="main-content">
                     <ProjectDetails />
                   </main>
                 </div>
               } />
               <Route path="/settings" element={
-                <div className="app-layout">
-                  <Sidebar />
+                <div className={`app-layout ${isSidebarCollapsed ? 'sidebar-collapsed' : ''}`}>
+                  <Sidebar isCollapsed={isSidebarCollapsed} setIsCollapsed={setIsSidebarCollapsed} />
                   <main className="main-content">
                     <Settings />
                   </main>
                 </div>
               } />
               <Route path="/guide" element={
-                <div className="app-layout">
-                  <Sidebar />
+                <div className={`app-layout ${isSidebarCollapsed ? 'sidebar-collapsed' : ''}`}>
+                  <Sidebar isCollapsed={isSidebarCollapsed} setIsCollapsed={setIsSidebarCollapsed} />
                   <main className="main-content">
                     <FunctionalityGuide />
                   </main>

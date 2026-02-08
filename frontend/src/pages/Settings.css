@@ -1,3 +1,39 @@
+/* Responsive Design */
+@media (max-width: 768px) {
+  .settings-container {
+    padding: 1rem;
+    padding-top: 5rem;
+  }
+
+  .settings-title {
+    font-size: 2rem;
+  }
+
+  .settings-subtitle {
+    font-size: 1rem;
+  }
+
+  .card-header {
+    padding: 1.25rem;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .card-content {
+    padding: 1.5rem;
+  }
+
+  .password-form {
+    max-width: 100%;
+  }
+
+  .btn-primary {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
 .settings-container {
   min-height: 100vh;
   background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);

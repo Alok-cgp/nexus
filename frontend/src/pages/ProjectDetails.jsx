@@ -114,12 +114,13 @@ const ProjectDetails = () => {
 
     return (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <button 
+            <Button 
                 onClick={() => navigate('/')}
-                className="flex items-center text-slate-500 hover:text-indigo-600 mb-6 transition-colors"
+                variant="back"
+                className="mb-6"
             >
                 <ArrowLeft className="h-4 w-4 mr-1" /> Back to Dashboard
-            </button>
+            </Button>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 {/* Left Column: Project Info */}
@@ -242,21 +243,25 @@ const ProjectDetails = () => {
                                 <h2 className="text-xl font-bold text-slate-900">Project Team</h2>
                             </div>
                             {canManageTeam && (
-                                <button 
+                                <Button 
                                     onClick={() => setShowAssign(!showAssign)}
-                                    className="p-2 text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors"
+                                    variant="ghost"
+                                    className="p-2"
                                 >
                                     <UserPlus className="h-5 w-5" />
-                                </button>
+                                </Button>
                             )}
                         </div>
 
                         {showAssign ? (
-                            <form onSubmit={handleAssign} className="space-y-6">
-                                <div>
-                                    <label className="block text-sm font-bold text-slate-700 mb-2">Project Lead</label>
+                            <form onSubmit={handleAssign} className="assign-form space-y-6">
+                                <div className="form-group">
+                                    <label className="form-label">
+                                        <Users size={16} />
+                                        Project Lead
+                                    </label>
                                     <select 
-                                        className="w-full p-2 border rounded-lg"
+                                        className="form-select"
                                         value={selectedLead}
                                         onChange={(e) => setSelectedLead(e.target.value)}
                                     >
@@ -266,24 +271,51 @@ const ProjectDetails = () => {
                                         ))}
                                     </select>
                                 </div>
-                                <div>
-                                    <label className="block text-sm font-bold text-slate-700 mb-2">Developers</label>
-                                    <div className="max-h-48 overflow-y-auto border rounded-lg p-2 space-y-1">
+                                
+                                <div className="form-group">
+                                    <label className="form-label">
+                                        <UserPlus size={16} />
+                                        Assigned Developers
+                                    </label>
+                                    <div className="developers-selection-grid">
                                         {allUsers.filter(u => u.role === 'Developer').map(u => (
                                             <div 
                                                 key={u._id} 
-                                                className={`flex items-center justify-between p-2 rounded-md cursor-pointer ${selectedDevs.includes(u._id) ? 'bg-indigo-50' : 'hover:bg-slate-50'}`}
+                                                className={`dev-selection-item ${selectedDevs.includes(u._id) ? 'selected' : ''}`}
                                                 onClick={() => toggleDev(u._id)}
                                             >
-                                                <span className="text-sm">{u.name}</span>
-                                                {selectedDevs.includes(u._id) && <CheckCircle className="h-4 w-4 text-indigo-600" />}
+                                                <div className="dev-info">
+                                                    <div className={`dev-avatar ${selectedDevs.includes(u._id) ? 'active' : ''}`}>
+                                                        {u.name.charAt(0)}
+                                                    </div>
+                                                    <span className="dev-name">{u.name}</span>
+                                                </div>
+                                                <div className={`selection-indicator ${selectedDevs.includes(u._id) ? 'checked' : ''}`}>
+                                                    {selectedDevs.includes(u._id) && <CheckCircle size={14} />}
+                                                </div>
                                             </div>
                                         ))}
+                                        {allUsers.filter(u => u.role === 'Developer').length === 0 && (
+                                            <p className="text-sm text-slate-500 italic p-4 text-center">No developers available</p>
+                                        )}
                                     </div>
                                 </div>
-                                <div className="flex space-x-2 pt-4">
-                                    <button type="submit" className="flex-1 py-2 bg-indigo-600 text-white rounded-lg font-bold">Save Team</button>
-                                    <button type="button" onClick={() => setShowAssign(false)} className="flex-1 py-2 bg-slate-100 text-slate-600 rounded-lg font-bold">Cancel</button>
+
+                                <div className="flex gap-3 pt-4">
+                                    <Button 
+                                        type="submit" 
+                                        variant="primary"
+                                        className="flex-1"
+                                    >
+                                        Save Team
+                                    </Button>
+                                    <Button 
+                                        type="button" 
+                                        onClick={() => setShowAssign(false)} 
+                                        variant="secondary"
+                                    >
+                                        Cancel
+                                    </Button>
                                 </div>
                             </form>
                         ) : (

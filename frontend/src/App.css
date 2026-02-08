@@ -13,12 +13,16 @@
   margin-left: 280px;
   padding: 2rem;
   background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-  transition: margin-left 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.app-layout.sidebar-collapsed .main-content {
+  margin-left: 70px;
 }
 
 @media (max-width: 768px) {
   .main-content {
-    margin-left: 0;
+    margin-left: 0 !important;
     padding: 1rem;
   }
 }

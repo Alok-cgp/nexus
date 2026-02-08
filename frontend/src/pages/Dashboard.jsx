@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import api from '../utils/api';
 import { useAuth } from '../context/AuthContext';
 import { toast } from 'react-hot-toast';
+import Button from '../components/Button';
 import {
     Plus,
     Briefcase,
@@ -15,11 +16,15 @@ import {
     Info,
     Folder,
     Eye,
-    ShieldCheck
+    ShieldCheck,
+    Layout,
+    Search,
+    FileText,
+    Settings as SettingsIcon,
+    HelpCircle
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Card from '../components/Card';
-import Button from '../components/Button';
 import './Dashboard.css';
 
 const Dashboard = () => {
@@ -203,89 +208,188 @@ const Dashboard = () => {
                 </div>
             </div>
 
-            {/* Admin: User Management Modal */}
+            {/* User Management Section */}
             {user.role === 'Admin' && showAddUser && (
-                <div className="dashboard-modal">
-                    <h2 className="modal-title">Register New Team Member</h2>
-                    <form onSubmit={handleCreateUser} className="user-form">
-                        <div className="form-row">
-                            <input
-                                type="text"
-                                placeholder="Full Name"
-                                required
-                                className="form-input"
-                                value={newUser.name}
-                                onChange={(e) => setNewUser({...newUser, name: e.target.value})}
-                            />
-                            <input
-                                type="email"
-                                placeholder="Email"
-                                required
-                                className="form-input"
-                                value={newUser.email}
-                                onChange={(e) => setNewUser({...newUser, email: e.target.value})}
-                            />
+                <div className="create-project-container glass-card animate-slideDown">
+                    <div className="flex justify-between items-center mb-6">
+                        <div className="flex items-center gap-3">
+                            <div className="icon-wrapper bg-purple-100 text-purple-600">
+                                <UserPlus size={20} />
+                            </div>
+                            <h2 className="text-xl font-bold text-slate-800">Add New Team Member</h2>
                         </div>
-                        <div className="form-row">
-                            <input
-                                type="password"
-                                placeholder="Password"
-                                required
-                                className="form-input"
-                                value={newUser.password}
-                                onChange={(e) => setNewUser({...newUser, password: e.target.value})}
-                            />
-                            <select
-                                className="form-select"
-                                value={newUser.role}
-                                onChange={(e) => setNewUser({...newUser, role: e.target.value})}
+                        <Button 
+                            onClick={() => setShowAddUser(false)}
+                            variant="ghost"
+                            className="p-2 rounded-full"
+                        >
+                            <Trash2 size={18} className="text-slate-400 hover:text-red-500" />
+                        </Button>
+                    </div>
+
+                    <form onSubmit={handleCreateUser} className="space-y-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div className="form-group">
+                                <label className="form-label">
+                                    <Users size={16} />
+                                    Full Name
+                                </label>
+                                <input
+                                    type="text"
+                                    placeholder="Enter full name"
+                                    required
+                                    className="form-input"
+                                    value={newUser.name}
+                                    onChange={(e) => setNewUser({...newUser, name: e.target.value})}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label className="form-label">
+                                    <ShieldCheck size={16} />
+                                    Role
+                                </label>
+                                <select
+                                    className="form-select"
+                                    value={newUser.role}
+                                    onChange={(e) => setNewUser({...newUser, role: e.target.value})}
+                                >
+                                    <option value="Admin">Admin</option>
+                                    <option value="Project Lead">Project Lead</option>
+                                    <option value="Developer">Developer</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div className="form-group">
+                                <label className="form-label">
+                                    <Info size={16} />
+                                    Email Address
+                                </label>
+                                <input
+                                    type="email"
+                                    placeholder="email@example.com"
+                                    required
+                                    className="form-input"
+                                    value={newUser.email}
+                                    onChange={(e) => setNewUser({...newUser, email: e.target.value})}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label className="form-label">
+                                    <Clock size={16} />
+                                    Temporary Password
+                                </label>
+                                <input
+                                    type="password"
+                                    placeholder="Min. 6 characters"
+                                    required
+                                    className="form-input"
+                                    value={newUser.password}
+                                    onChange={(e) => setNewUser({...newUser, password: e.target.value})}
+                                />
+                            </div>
+                        </div>
+
+                        <div className="flex justify-end items-center gap-4 pt-2">
+                            <Button 
+                                variant="ghost"
+                                onClick={() => setShowAddUser(false)} 
                             >
-                                <option value="Developer">Developer</option>
-                                <option value="Project Lead">Project Lead</option>
-                                <option value="Admin">Admin</option>
-                            </select>
-                        </div>
-                        <div className="form-actions">
-                            <Button type="submit" variant="primary" size="medium">Add User</Button>
-                            <Button type="button" variant="outline" size="medium" onClick={() => setShowAddUser(false)}>Cancel</Button>
+                                Cancel
+                            </Button>
+                            <Button 
+                                type="submit" 
+                                variant="primary"
+                            >
+                                <UserPlus size={18} />
+                                Add Member
+                            </Button>
                         </div>
                     </form>
                 </div>
             )}
 
             {/* Admin: Create Project Form */}
+            {/* Create Project Section */}
             {user.role === 'Admin' && showAddProject && (
-                <div className="mb-8 bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-                    <h2 className="text-lg font-bold mb-4">Create New Project</h2>
-                    <form onSubmit={handleCreateProject} className="space-y-4">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <input
-                                type="text"
-                                placeholder="Project Name"
-                                required
-                                className="p-2 border rounded-lg"
-                                value={newProject.name}
-                                onChange={(e) => setNewProject({...newProject, name: e.target.value})}
-                            />
-                            <input
-                                type="date"
-                                required
-                                className="p-2 border rounded-lg"
-                                value={newProject.deadline}
-                                onChange={(e) => setNewProject({...newProject, deadline: e.target.value})}
-                            />
+                <div className="create-project-container glass-card animate-slideDown">
+                    <div className="flex justify-between items-center mb-6">
+                        <div className="flex items-center gap-3">
+                            <div className="icon-wrapper bg-indigo-100 text-indigo-600">
+                                <Plus size={20} />
+                            </div>
+                            <h2 className="text-xl font-bold text-slate-800">Create New Project</h2>
                         </div>
-                        <textarea
-                            placeholder="Description"
-                            required
-                            className="w-full p-2 border rounded-lg"
-                            rows="3"
-                            value={newProject.description}
-                            onChange={(e) => setNewProject({...newProject, description: e.target.value})}
-                        ></textarea>
-                        <div className="flex justify-end space-x-3">
-                            <button type="button" onClick={() => setShowAddProject(false)} className="px-4 py-2 text-slate-500 font-medium">Cancel</button>
-                            <button type="submit" className="px-6 py-2 bg-indigo-600 text-white rounded-lg font-medium">Create Project</button>
+                        <Button 
+                            onClick={() => setShowAddProject(false)}
+                            variant="ghost"
+                            className="p-2 rounded-full"
+                        >
+                            <Trash2 size={18} className="text-slate-400 hover:text-red-500" />
+                        </Button>
+                    </div>
+
+                    <form onSubmit={handleCreateProject} className="space-y-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div className="form-group">
+                                <label className="form-label">
+                                    <Briefcase size={16} />
+                                    Project Name
+                                </label>
+                                <input
+                                    type="text"
+                                    placeholder="Enter project name"
+                                    required
+                                    className="form-input"
+                                    value={newProject.name}
+                                    onChange={(e) => setNewProject({...newProject, name: e.target.value})}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label className="form-label">
+                                    <Calendar size={16} />
+                                    Deadline
+                                </label>
+                                <input
+                                    type="date"
+                                    required
+                                    className="form-input"
+                                    value={newProject.deadline}
+                                    onChange={(e) => setNewProject({...newProject, deadline: e.target.value})}
+                                />
+                            </div>
+                        </div>
+                        
+                        <div className="form-group">
+                            <label className="form-label">
+                                <Info size={16} />
+                                Description
+                            </label>
+                            <textarea
+                                placeholder="Describe the project objectives..."
+                                required
+                                className="form-input min-h-[120px]"
+                                rows="3"
+                                value={newProject.description}
+                                onChange={(e) => setNewProject({...newProject, description: e.target.value})}
+                            ></textarea>
+                        </div>
+
+                        <div className="flex justify-end items-center gap-4 pt-2">
+                            <Button 
+                                variant="ghost"
+                                onClick={() => setShowAddProject(false)} 
+                            >
+                                Cancel
+                            </Button>
+                            <Button 
+                                type="submit" 
+                                variant="primary"
+                            >
+                                <Plus size={18} />
+                                Create Project
+                            </Button>
                         </div>
                     </form>
                 </div>
@@ -389,20 +493,22 @@ const Dashboard = () => {
                                             </Link>
                                             {user.role === 'Admin' && (
                                                 <>
-                                                    <button 
+                                                    <Button 
                                                         onClick={() => handleCompleteProject(project._id)}
+                                                        variant="ghost"
                                                         className="p-2 text-green-600 hover:bg-green-50 rounded-lg transition-colors"
                                                         title="Mark Completed"
                                                     >
                                                         <CheckCircle size={18} />
-                                                    </button>
-                                                    <button 
+                                                    </Button>
+                                                    <Button 
                                                         onClick={() => handleDeleteProject(project._id)}
+                                                        variant="ghost"
                                                         className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                                                         title="Delete Project"
                                                     >
                                                         <Trash2 size={18} />
-                                                    </button>
+                                                    </Button>
                                                 </>
                                             )}
                                         </div>

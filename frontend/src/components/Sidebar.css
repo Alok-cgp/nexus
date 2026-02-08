@@ -177,10 +177,54 @@
 @media (max-width: 768px) {
   .sidebar {
     transform: translateX(-100%);
+    width: 280px !important;
   }
 
-  .sidebar-collapsed {
-    width: 280px;
+  .sidebar-mobile-open {
     transform: translateX(0);
   }
+
+  .desktop-only {
+    display: none;
+  }
+}
+
+.mobile-sidebar-toggle {
+  display: none;
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 1100;
+  background: white;
+  border: 1px solid #e2e8f0;
+  padding: 0.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  color: #1e293b;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .mobile-sidebar-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  z-index: 999;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
