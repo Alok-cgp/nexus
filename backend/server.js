@@ -16,6 +16,7 @@ const app = express();
 const allowedOrigins = [
     'http://localhost:5173',
     'http://localhost:5174',
+    'https://nexus-backend-sepia.vercel.app',
     process.env.FRONTEND_URL
 ].filter(Boolean);
 
@@ -23,15 +24,21 @@ app.use(cors({
     origin: function (origin, callback) {
         // allow requests with no origin (like mobile apps or curl requests)
         if (!origin) return callback(null, true);
-        if (allowedOrigins.indexOf(origin) === -1) {
+        
+        // Allow any vercel.app domain in production
+        const isVercel = origin.endsWith('.vercel.app');
+        
+        if (allowedOrigins.indexOf(origin) !== -1 || isVercel) {
+            return callback(null, true);
+        } else {
             const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
             return callback(new Error(msg), false);
         }
-        return callback(null, true);
     },
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials: true
+    credentials: true,
+    optionsSuccessStatus: 200
 }));
 
 // 2. Security Headers
@@ -57,6 +64,7 @@ app.use(morgan('dev'));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Routes
+app.get('/api/health', (req, res) => res.json({ status: 'ok', message: 'Backend is running' }));
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/projects', require('./routes/projectRoutes'));
 app.use('/api/documents', require('./routes/documentRoutes'));
