@@ -1,0 +1,132 @@
+.guide-container {
+    padding: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.guide-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.guide-title {
+    font-size: 2.25rem;
+    font-weight: 800;
+    color: #1e293b;
+    margin-bottom: 0.5rem;
+}
+
+.guide-subtitle {
+    color: #64748b;
+    font-size: 1.1rem;
+}
+
+.guide-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+}
+
+.guide-section {
+    background: white;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.section-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #334155;
+}
+
+.section-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.guide-item {
+    background: #f8fafc;
+    padding: 1.25rem;
+    border-radius: 0.75rem;
+    border: 1px solid #e2e8f0;
+}
+
+.item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.75rem;
+    gap: 1rem;
+}
+
+.item-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.role-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.role-badge {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.25rem 0.6rem;
+    border-radius: 9999px;
+    background: #e0e7ff;
+    color: #4338ca;
+    white-space: nowrap;
+}
+
+.item-description {
+    font-size: 0.95rem;
+    color: #475569;
+    line-height: 1.5;
+}
+
+.guide-footer {
+    margin-top: 4rem;
+    padding: 2rem;
+    background: #f1f5f9;
+    border-radius: 1rem;
+    border-left: 4px solid #6366f1;
+}
+
+.footer-content {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+}
+
+.footer-icon {
+    width: 2rem;
+    height: 2rem;
+    color: #6366f1;
+    flex-shrink: 0;
+}
+
+.footer-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 0.25rem;
+}
+
+.footer-description {
+    font-size: 0.95rem;
+    color: #475569;
+}

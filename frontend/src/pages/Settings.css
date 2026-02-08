@@ -1,0 +1,371 @@
+.settings-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  padding: 2rem;
+  animation: fadeIn 0.6s ease-out;
+}
+
+.settings-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.settings-title {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #1e293b;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.settings-subtitle {
+  font-size: 1.125rem;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.settings-content {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.settings-card {
+  animation: slideUp 0.6s ease-out both;
+}
+
+.settings-card:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.settings-card:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem 2rem;
+  border-bottom: 2px solid #e2e8f0;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05));
+}
+
+.header-icon {
+  padding: 0.75rem;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: white;
+}
+
+.card-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.card-content {
+  padding: 2rem;
+}
+
+.password-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 400px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+.form-input {
+  padding: 0.75rem 1rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: white;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  transform: translateY(-1px);
+}
+
+.update-btn {
+  margin-top: 1rem;
+}
+
+.mfa-status {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  margin-bottom: 2rem;
+}
+
+.mfa-status.enabled {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(5, 150, 105, 0.1));
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.mfa-status.disabled {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(217, 119, 6, 0.1));
+  border: 1px solid rgba(245, 158, 11, 0.2);
+}
+
+.status-icon {
+  padding: 0.75rem;
+  border-radius: 50%;
+}
+
+.mfa-status.enabled .status-icon {
+  background: rgba(16, 185, 129, 0.2);
+}
+
+.mfa-status.disabled .status-icon {
+  background: rgba(245, 158, 11, 0.2);
+}
+
+.mfa-status.enabled .icon {
+  color: #10b981;
+}
+
+.mfa-status.disabled .icon {
+  color: #f59e0b;
+}
+
+.status-content h3 {
+  font-size: 1.125rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.mfa-status.enabled .status-title {
+  color: #047857;
+}
+
+.mfa-status.disabled .status-title {
+  color: #92400e;
+}
+
+.status-text {
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.mfa-status.enabled .status-text {
+  color: #065f46;
+}
+
+.mfa-status.disabled .status-text {
+  color: #78350f;
+}
+
+.mfa-setup {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.setup-btn {
+  align-self: flex-start;
+}
+
+.btn-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-right: 0.5rem;
+}
+
+.mfa-verification {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05));
+  border: 2px solid rgba(102, 126, 234, 0.1);
+  border-radius: 1rem;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.qr-section {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+}
+
+@media (min-width: 768px) {
+  .qr-section {
+    flex-direction: row;
+  }
+}
+
+.qr-container {
+  background: white;
+  padding: 1rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e2e8f0;
+}
+
+.qr-code {
+  width: 192px;
+  height: 192px;
+  display: block;
+}
+
+.qr-instructions {
+  flex: 1;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .qr-instructions {
+    text-align: left;
+  }
+}
+
+.qr-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 0.5rem;
+}
+
+.qr-text {
+  font-size: 0.875rem;
+  color: #64748b;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+.secret-key {
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  font-size: 0.75rem;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  word-break: break-all;
+  color: #374151;
+}
+
+.verification-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+@media (min-width: 768px) {
+  .verification-form {
+    flex-direction: row;
+    align-items: flex-end;
+  }
+}
+
+.code-input-group {
+  flex: 1;
+  max-width: 300px;
+}
+
+.code-input {
+  width: 100%;
+  padding: 1rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 0.5rem;
+  font-size: 1.5rem;
+  text-align: center;
+  letter-spacing: 0.25rem;
+  transition: all 0.3s ease;
+  background: white;
+}
+
+.code-input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  transform: translateY(-1px);
+}
+
+.verify-btn {
+  flex-shrink: 0;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .settings-container {
+    padding: 1rem;
+  }
+
+  .settings-title {
+    font-size: 2rem;
+  }
+
+  .card-header {
+    padding: 1rem 1.5rem;
+  }
+
+  .card-content {
+    padding: 1.5rem;
+  }
+
+  .mfa-verification {
+    padding: 1.5rem;
+  }
+
+  .qr-section {
+    gap: 1.5rem;
+  }
+
+  .verification-form {
+    gap: 1rem;
+  }
+
+  .code-input {
+    font-size: 1.25rem;
+  }
+}
