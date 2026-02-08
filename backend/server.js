@@ -60,8 +60,9 @@ app.use('/api/', limiter);
 app.use(express.json());
 app.use(morgan('dev'));
 
-// Static folder for uploads
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+// Static folder for uploads - only if it exists
+const uploadsPath = path.join(__dirname, 'uploads');
+app.use('/uploads', express.static(uploadsPath));
 
 // Routes
 app.get('/api/health', (req, res) => res.json({ status: 'ok', message: 'Backend is running' }));
@@ -69,19 +70,14 @@ app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/projects', require('./routes/projectRoutes'));
 app.use('/api/documents', require('./routes/documentRoutes'));
 
-// Serve frontend in production
-if (process.env.NODE_ENV === 'production') {
-    // Set static folder
-    app.use(express.static(path.join(__dirname, '../frontend/dist')));
-
-    app.get('*', (req, res) => {
-        res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
+// Serve API status at root
+app.get('/', (req, res) => {
+    res.json({ 
+        status: 'ok', 
+        message: 'PixelForge Nexus API is running...',
+        docs: 'Use /api/health for system status'
     });
-} else {
-    app.get('/', (req, res) => {
-        res.send('PixelForge Nexus API is running...');
-    });
-}
+});
 
 // Error Handler
 app.use((err, req, res, next) => {
